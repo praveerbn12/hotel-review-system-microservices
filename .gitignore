@@ -1,0 +1,19 @@
+# Java
+*.class
+*.log
+target/
+
+# Build tools
+.mvn/
+.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+
+# Env
+.env
