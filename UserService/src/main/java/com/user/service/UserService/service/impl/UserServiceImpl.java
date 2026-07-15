@@ -1,5 +1,6 @@
 package com.user.service.UserService.service.impl;
 
+import com.user.service.UserService.client.RatingClient;
 import com.user.service.UserService.entity.User;
 import com.user.service.UserService.exception.ResourseNotFound;
 import com.user.service.UserService.payload.RatingDto;
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private RatingClient ratingClient;
 
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -39,9 +42,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUserId(Integer userId) {
         User user=userRepository.findById(userId).orElseThrow(()-> new ResourseNotFound("User Id not Present"));
-        ArrayList<RatingDto> forobj= restTemplate.getForObject("http://localhost:8080/api/rating/allRating/"+userId+"/user", ArrayList.class);
-        logger.info("obj ",forobj);
-        user.setRatingDtoList(forobj);
+//        ArrayList<RatingDto> forobj= restTemplate.getForObject("http://localhost:8083/api/rating/allRating/"+userId+"/user", ArrayList.class);
+//        logger.info("obj ",forobj);
+//        user.setRatingDtoList(forobj);
+
+        List<RatingDto> ratings = ratingClient.getRatingsByUser(userId);
+        user.setRatingDtoList(ratings);
         return  user;
     }
 }
