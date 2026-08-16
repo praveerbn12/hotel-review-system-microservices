@@ -1,6 +1,8 @@
 package com.user.service.UserService.controller;
 
 import com.user.service.UserService.entity.User;
+import com.user.service.UserService.payload.UserRequest;
+import com.user.service.UserService.payload.UserResponse;
 import com.user.service.UserService.service.UserService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +18,19 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping("/addUser")
-    public ResponseEntity<User> createUser(@RequestBody  User user){
-        System.out.println("in controller " + user);
-        User user1=userService.saveUser(user);
-        System.out.println(user1);
-        return  ResponseEntity.status(HttpStatus.CREATED).body(user1);
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+        UserResponse saved = userService.saveUser(userRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+
     @GetMapping("/getUser")
-    public ResponseEntity<List<User>> getAllUser(){
-      List<User>  user1=userService.getAllUser();
-        return  ResponseEntity.status(HttpStatus.OK).body(user1);
+    public ResponseEntity<List<UserResponse>> getAllUser() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUser());
     }
 
     @GetMapping("/getUser/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer userId ){
-        User  user1=userService.getUserByUserId(userId);
-        return  ResponseEntity.status(HttpStatus.OK).body(user1);
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Integer userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByUserId(userId));
     }
 
 }
