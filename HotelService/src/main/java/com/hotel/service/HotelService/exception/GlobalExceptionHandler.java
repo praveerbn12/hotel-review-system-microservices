@@ -11,10 +11,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFound.class)
     public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(ResourceNotFound resourseNotFound){
         String m=resourseNotFound.getMessage();
-        ApiResponse apiResponse  = ApiResponse.builder().message(m).success(true).httpStatus(HttpStatus.NOT_FOUND).build();
+        ApiResponse apiResponse  = ApiResponse.builder().message(m).success(false).httpStatus(HttpStatus.NOT_FOUND).build();
 //         ApiResponse apiResponse= new ApiResponse(m,false,HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<ApiResponse>(apiResponse,HttpStatus.NOT_FOUND);
 
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse> handleGeneric(Exception ex) {
+        ApiResponse apiResponse = ApiResponse.builder()
+                .message("Something went wrong")   // generic — never leak ex.getMessage() details to the client
+                .success(false)
+                .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

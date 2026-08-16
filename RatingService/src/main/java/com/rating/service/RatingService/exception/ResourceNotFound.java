@@ -6,6 +6,6 @@ public class ResourceNotFound extends  RuntimeException{
         super("Resource Not Found");
     }
     public ResourceNotFound(String message){
-        super("Resource Not Found" + message);
+        super("Resource Not Found " + message);
     }
 }
