@@ -4,6 +4,7 @@ import com.rating.service.RatingService.entity.Rating;
 import com.rating.service.RatingService.payload.RatingRequest;
 import com.rating.service.RatingService.payload.RatingResponse;
 import com.rating.service.RatingService.service.RatingService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class RatingController {
     @Autowired
     public RatingService ratingService;
     @PostMapping("/addRating")
-    public ResponseEntity<RatingResponse> saveRating(@RequestBody RatingRequest ratingRequest) {
+    public ResponseEntity<RatingResponse> saveRating(@Valid @RequestBody RatingRequest ratingRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.saveRating(ratingRequest));
     }
 

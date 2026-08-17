@@ -1,6 +1,10 @@
 package com.user.service.UserService.payload;
 
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -9,8 +13,10 @@ import lombok.*;
 @NoArgsConstructor
 public class RatingDto {
     private Integer ratingId;
-    private Integer userId;
-    private Integer hotelId;
-    private Integer ratingInStar;
-    private  String  remark;
+    @NotNull private Integer userId;
+    @NotNull private Integer hotelId;
+    @NotNull
+    @Min(1) @Max(5) private Integer ratingInStar;
+    @NotBlank
+    private String remark;
 }

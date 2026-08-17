@@ -4,6 +4,7 @@ import com.hotel.service.HotelService.entity.Hotel;
 import com.hotel.service.HotelService.payload.HotelRequest;
 import com.hotel.service.HotelService.payload.HotelResponse;
 import com.hotel.service.HotelService.service.HotelService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class HotelController {
     @Autowired
     HotelService hotelService;
     @PostMapping("/addHotel")
-    public ResponseEntity<HotelResponse> createHotel(@RequestBody HotelRequest hotelRequest){
+    public ResponseEntity<HotelResponse> createHotel(@Valid @RequestBody HotelRequest hotelRequest){
         HotelResponse hotel=hotelService.saveHotel(hotelRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(hotel);
     }

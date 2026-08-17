@@ -4,6 +4,7 @@ import com.user.service.UserService.entity.User;
 import com.user.service.UserService.payload.UserRequest;
 import com.user.service.UserService.payload.UserResponse;
 import com.user.service.UserService.service.UserService;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping("/addUser")
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userRequest) {
         UserResponse saved = userService.saveUser(userRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
