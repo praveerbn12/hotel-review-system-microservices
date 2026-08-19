@@ -1,5 +1,6 @@
 package com.user.service.UserService.entity;
 
+import com.user.service.UserService.enums.Role;
 import com.user.service.UserService.payload.RatingDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,8 +19,9 @@ public class User {
     private String userName;
     private String userEmail;
     private String userAbout;
-    @Transient
-    private List<RatingDto> ratingDtoList;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Integer getUserId() {
         return userId;
@@ -53,11 +55,21 @@ public class User {
         this.userAbout = userAbout;
     }
 
-    public List<RatingDto> getRatingDtoList() {
-        return ratingDtoList;
+
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setRatingDtoList(List<RatingDto> ratingDtoList) {
-        this.ratingDtoList = ratingDtoList;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

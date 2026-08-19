@@ -24,6 +24,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleGeneric(Exception ex) {
+        ex.printStackTrace();
         ApiResponse apiResponse = ApiResponse.builder()
                 .message("Something went wrong")   // generic — never leak ex.getMessage() details to the client
                 .success(false)

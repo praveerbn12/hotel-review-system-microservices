@@ -1,8 +1,7 @@
 package com.user.service.UserService.controller;
 
 import com.user.service.UserService.entity.User;
-import com.user.service.UserService.payload.UserRequest;
-import com.user.service.UserService.payload.UserResponse;
+import com.user.service.UserService.payload.*;
 import com.user.service.UserService.service.UserService;
 import jakarta.validation.Valid;
 import lombok.Getter;
@@ -34,4 +33,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByUserId(userId));
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest req) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(req));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest req) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.login(req));
+    }
 }

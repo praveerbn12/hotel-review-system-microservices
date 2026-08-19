@@ -17,3 +17,8 @@ target/
 
 # Env
 .env
+
+# RSA keys - never commit
+keys/
+*.pem
+
